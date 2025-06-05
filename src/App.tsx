@@ -1,6 +1,7 @@
 
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom"; 
-import { AuthPage } from './pages';
+import { AuthPage, DashboardPage } from './pages';
+import { DashboardLayout } from "./components/dashboardLayout";
 
 function App() {
   const router = createBrowserRouter(
@@ -8,6 +9,9 @@ function App() {
     createRoutesFromElements(
       <Route path="/">
         <Route index element={<AuthPage />} /> 
+        <Route path="dashboard" element={<DashboardLayout />} >
+          <Route index element={<DashboardPage />} />
+        </Route>
       </Route>
     )
   );
