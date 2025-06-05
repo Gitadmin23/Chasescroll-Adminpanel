@@ -9,49 +9,40 @@ import {
 } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 
-// Register components
+// Register required Chart.js components
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const DoughnutChart: React.FC = () => {
-  // Sample data
   const data: ChartData<'doughnut'> = {
-    labels: ['Red', 'Yellow'],
+    labels: ['Active', 'Inactive'],
     datasets: [
       {
-        label: 'Votes',
-        data: [300, 100],
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.6)', 
-          'rgba(255, 206, 86, 0.6)'
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)', 
-          'rgba(255, 206, 86, 1)'
-        ],
-        borderWidth: 1
+        label: 'Users',
+        data: [70, 30],
+        backgroundColor: ['#FDA21C', '#00B69B'],
+        borderWidth: 0,
       }
     ]
   };
 
-  // Chart options
   const options: ChartOptions<'doughnut'> = {
     responsive: true,
-    maintainAspectRatio: false,
+    maintainAspectRatio: false, // Allow height to stretch to div
     plugins: {
       legend: {
         display: false,
         position: 'bottom',
+        labels: {
+          boxWidth: 12,
+          font: { size: 10 }
+        }
       }
-    }
+    },
+    cutout: '65%', // Optional: size of inner circle
   };
 
-  return (
-    <div 
-    style={{ 
-        width: '100%', 
-        height: '110px',
-        position: 'relative'
-      }}>
+  return ( 
+    <div >
       <Doughnut data={data} options={options} />
     </div>
   );

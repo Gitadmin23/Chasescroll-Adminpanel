@@ -1,14 +1,4 @@
-import { Calendar, LayoutGrid, Inbox, Search, Settings } from "lucide-react"
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-} from "@/components/ui/sidebar" 
+import { Calendar, LayoutGrid, Inbox, Search, Settings } from "lucide-react" 
 import { useLocation, useNavigate } from "react-router"
 
 // Menu items.
@@ -50,7 +40,7 @@ export default function AppSidebar() {
   }
 
   return (
-    <div className=" w-[301px] h-full flex flex-col gap-4 px-6 py-8 border-r border-bordercolor " >
+    <div className=" w-[301px] h-full flex flex-col gap-2 px-6 py-8 border-r border-bordercolor " >
       {items.map((item) => (
         <div onClick={() => handleClick(item.url)} key={item.title} className={` w-full flex cursor-pointer font-semibold items-center gap-1 rounded-lg px-2 h-[56px] ${history.pathname === item.url ? "bg-brand text-white " : " bg-transparent text-inactive "} `} >
           <div className=" w-8 h-8 flex items-center justify-center " >

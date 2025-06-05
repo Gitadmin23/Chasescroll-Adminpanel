@@ -14,7 +14,7 @@ export default function DashboardLayout() {
             <div className=" w-fit h-full " >
                 <AppSidebar />
             </div>
-            <div className=" w-full h-full flex flex-col flex-1 overflow-auto bg-[#FAFAFB] px-6 gap-4 py-8 " >
+            <div className=" w-full h-full flex flex-col flex-1 overflow-x-hidden overflow-y-auto bg-[#FAFAFB] px-6 gap-4 py-8 " >
                 <HeaderLabel />
                 <Outlet />
             </div>
