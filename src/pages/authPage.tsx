@@ -1,4 +1,9 @@
+import { useNavigate } from "react-router-dom";
+
 export default function AuthPage() {
+
+    const router = useNavigate()
+
     return (
         <div className=" w-screen h-screen flex justify-center items-center " >
             <img src={"/images/auth.jpg"} alt="logo" className=" w-full h-full object-cover fixed inset-0 " />
@@ -22,7 +27,7 @@ export default function AuthPage() {
                             <input type="checkbox" className=" w-4 h-4 " />
                             <p className=" text-[#1F1F1F] " >Remember me</p>
                         </div>
-                        <button className=" w-full h-[50px] bg-[#233DF3] text-white rounded-full font-bold " >Login</button>
+                        <button onClick={()=> router("/dashboard")} className=" w-full h-[50px] bg-[#233DF3] text-white rounded-full font-bold " >Login</button>
                     </div>
                 </div>
             </div>

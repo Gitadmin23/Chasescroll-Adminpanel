@@ -1,6 +1,6 @@
 
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom"; 
-import { AuthPage, DashboardPage } from './pages';
+import { AuthPage, BusinessHomePage, CommunityHomePage, DashboardPage, EventHomePage, FundraiserHomePage, TransactionHomePage, UserHomePage } from './pages';
 import { DashboardLayout } from "./components/dashboardLayout";
 
 function App() {
@@ -11,6 +11,24 @@ function App() {
         <Route index element={<AuthPage />} /> 
         <Route path="dashboard" element={<DashboardLayout />} >
           <Route index element={<DashboardPage />} />
+          <Route path="user" >
+            <Route index element={<UserHomePage />} />
+          </Route>
+          <Route path="event" >
+            <Route index element={<EventHomePage />} />
+          </Route>
+          <Route path="business" >
+            <Route index element={<BusinessHomePage />} />
+          </Route>
+          <Route path="fundraiser" >
+            <Route index element={<FundraiserHomePage />} />
+          </Route> 
+          <Route path="community" >
+            <Route index element={<CommunityHomePage />} />
+          </Route>
+          <Route path="transaction" >
+            <Route index element={<TransactionHomePage />} />
+          </Route>
         </Route>
       </Route>
     )

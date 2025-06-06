@@ -1,6 +1,6 @@
 import { useLocation } from "react-router"
 import { Button } from "../ui/button"
-import { Plus } from "lucide-react"
+import { ChevronRight, Plus } from "lucide-react"
 
 export default function HeaderLabel() {
 
@@ -8,8 +8,18 @@ export default function HeaderLabel() {
     const location = useLocation()
 
     return (
-        <div className=" w-full flex justify-between items-center gap-2 py-2 text-headtext " >
-            <p className="  font-medium text-3xl " >{title}</p>
+        <div className={` w-full flex justify-between items-center gap-2 text-headtext ${location?.pathname === "/dashboard" ? " py-2 " : " bg-white py-1 px-2 "} `} >
+            {location?.pathname === "/dashboard" ?
+                (
+                    <p className="  font-medium text-3xl " >{title}</p>
+                ) : (
+                    <div className=" flex gap-1 items-center " > 
+                        <p className="  font-medium text-bodytext " >Dashboard</p>
+                        <ChevronRight />
+                        <p className=" capitalize " >{location?.pathname?.replace("/dashboard/", "")}</p>
+                    </div>
+                )
+            }
             {location?.pathname === "/dashboard" && (
                 <div className=" flex gap-3 items-center " >
                     <Button variant="outline" className=" w-[80px] font-semibold rounded-[6px] " >Export</Button>

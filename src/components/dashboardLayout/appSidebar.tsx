@@ -1,4 +1,4 @@
-import { Calendar, LayoutGrid, Inbox, Search, Settings } from "lucide-react" 
+import { Calendar, LayoutGrid, Users, Search, Settings, CalendarCheck, DollarSign, LockKeyhole } from "lucide-react" 
 import { useLocation, useNavigate } from "react-router"
 
 // Menu items.
@@ -9,22 +9,42 @@ const items = [
     icon: LayoutGrid,
   },
   {
-    title: "Inbox",
-    url: "#",
-    icon: Inbox,
+    title: "User",
+    url: "/dashboard/user",
+    icon: Users,
   },
   {
-    title: "Calendar",
-    url: "#",
-    icon: Calendar,
+    title: "Events",
+    url: "/dashboard/event",
+    icon: CalendarCheck,
   },
   {
-    title: "Search",
-    url: "#",
-    icon: Search,
+    title: "Fundraising",
+    url: "/dashboard/fundraiser",
+    icon: DollarSign,
   },
   {
-    title: "Settings",
+    title: "Business",
+    url: "/dashboard/business",
+    icon: LockKeyhole,
+  },
+  {
+    title: "Communities",
+    url: "/dashboard/community",
+    icon: Settings,
+  },
+  {
+    title: "Transactions",
+    url: "/dashboard/",
+    icon: Settings,
+  },
+  {
+    title: "Mail Blast",
+    url: "#",
+    icon: Settings,
+  },
+  {
+    title: "Role Mangement",
     url: "#",
     icon: Settings,
   },
@@ -35,7 +55,7 @@ export default function AppSidebar() {
   const history = useLocation()
   const navigate = useNavigate()
 
-  const handleClick = (url: string) => {
+  const handleClick = (url: string) => { 
     navigate(url)
   }
 
