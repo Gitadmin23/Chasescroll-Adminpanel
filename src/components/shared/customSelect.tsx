@@ -1,4 +1,3 @@
-import * as React from "react"
 
 import {
     Select,
@@ -16,18 +15,20 @@ interface IProps {
         value: string;
         label: string
     }>,
-    label?: string
+    label?: string,
+    classname?: string
 }
 
 export default function CustomSelect(
     {
         placeholder,
         data,
-        label
+        label,
+        classname
     }: IProps) {
     return (
         <Select>
-            <SelectTrigger className="w-full">
+            <SelectTrigger className={` w-full ${classname} `}>
                 <SelectValue placeholder={placeholder} />
             </SelectTrigger>
             <SelectContent>

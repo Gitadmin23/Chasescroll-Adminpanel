@@ -14,9 +14,9 @@ export default function HeaderLabel() {
                     <p className="  font-medium text-3xl " >{title}</p>
                 ) : (
                     <div className=" flex gap-1 items-center " > 
-                        <p className="  font-medium text-bodytext " >Dashboard</p>
-                        <ChevronRight />
-                        <p className=" capitalize " >{location?.pathname?.replace("/dashboard/", "")}</p>
+                        <p className="  font-medium text-bodytext " >Dashboard {" > "}</p>
+                        {/* <ChevronRight /> */}
+                        <p className=" capitalize " >{location?.pathname?.replace("/dashboard/", "").replace("/", " > ")}</p>
                     </div>
                 )
             }

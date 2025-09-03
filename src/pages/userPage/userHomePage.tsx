@@ -6,7 +6,7 @@ export default function UserHomePage() {
         <div className=" w-full h-full flex flex-col gap-8 text-headtext " >
             <UserTotalInfo />
             <UserGraph />
-            <UserTable />
+            <UserTable show={true} />
         </div>
     )
 }

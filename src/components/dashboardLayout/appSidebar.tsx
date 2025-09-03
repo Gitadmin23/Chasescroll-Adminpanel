@@ -1,17 +1,23 @@
-import { Calendar, LayoutGrid, Users, Search, Settings, CalendarCheck, DollarSign, LockKeyhole } from "lucide-react" 
+import { Settings, CalendarCheck, LockKeyhole } from "lucide-react" 
 import { useLocation, useNavigate } from "react-router"
+import { FaCreditCard, FaUsers } from "react-icons/fa";
+import { HiUsers } from "react-icons/hi2";
+import { HiViewGrid } from "react-icons/hi";
+import { TbCurrencyNaira } from "react-icons/tb";
+import { IoIosMail } from "react-icons/io";
+
 
 // Menu items.
 const items = [
   {
     title: "Dashboard",
     url: "/dashboard",
-    icon: LayoutGrid,
+    icon: HiViewGrid,
   },
   {
     title: "User",
     url: "/dashboard/user",
-    icon: Users,
+    icon: HiUsers,
   },
   {
     title: "Events",
@@ -21,7 +27,7 @@ const items = [
   {
     title: "Fundraising",
     url: "/dashboard/fundraiser",
-    icon: DollarSign,
+    icon: TbCurrencyNaira,
   },
   {
     title: "Business",
@@ -31,17 +37,17 @@ const items = [
   {
     title: "Communities",
     url: "/dashboard/community",
-    icon: Settings,
+    icon: FaUsers,
   },
   {
     title: "Transactions",
-    url: "/dashboard/",
-    icon: Settings,
+    url: "/dashboard/transaction",
+    icon: FaCreditCard,
   },
   {
     title: "Mail Blast",
     url: "#",
-    icon: Settings,
+    icon: IoIosMail,
   },
   {
     title: "Role Mangement",

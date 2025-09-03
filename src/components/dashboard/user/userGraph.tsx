@@ -2,7 +2,7 @@ import { filterDate } from "@/assets/databank/dateFilter";
 import { AreaGraph } from "../../graphs";
 import { CustomSelect } from "../../shared";
 
-export default function UserGraph() {
+export default function UserGraph(){ 
     return (
         <div className=" w-full py-8 px-6 rounded-[12px] flex flex-col gap-3 bg-white " >
             <div className=" w-full flex justify-between items-center " >

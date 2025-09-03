@@ -7,7 +7,15 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { Button } from "../../ui/button"
-import { CustomPagination } from "../../shared"
+import { CustomPagination, DrawerSheet } from "../../shared"
+import { EventInfoModal } from "@/components/modal"
+import { useFetchData } from "@/hooks/useFetchData"
+import type { IPagination } from "@/helpers/models/pagination"
+import type { IEvent } from "@/helpers/models/event"
+import LoadingAnimation from "@/components/shared/loadingAnimation"
+import { dateFormat } from "@/helpers/utils/dateFormat"
+import { numberFormatNaire } from "@/helpers/utils/formatNumberWithK"
+import UserImage from "@/components/shared/userImage"
 
 const event = [
     {
@@ -55,6 +63,15 @@ const event = [
 ]
 
 export default function EventTable() {
+
+
+    const { data, isLoading } = useFetchData<IPagination<IEvent>>(`/events/events`, "event",
+        // {
+        //     page: page,
+        //     size: size
+        // }
+    ); 
+
     return (
         <div className=" w-full flex flex-col gap-1 " >
             <div className=" w-full flex justify-between items-center rounded-md py-3 px-4 bg-white " >
@@ -72,39 +89,43 @@ export default function EventTable() {
                     View All
                 </Button>
             </div>
-            <Table>
-                <TableHeader>
-                    <TableRow className=" h-[47px] border-white uppercase " >
-                        <TableHead>Event Name</TableHead>
-                        <TableHead>Created By</TableHead>
-                        <TableHead>Date</TableHead>
-                        <TableHead>Ticket Price</TableHead>
-                        <TableHead>attendance</TableHead>
-                        <TableHead>ACTION</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody className=" bg-white "  >
-                    {event.map((item, index) => (
-                        <TableRow className=" h-[47px] border-white " key={index}>
-                            <TableCell >{item.name}</TableCell>
-                            <TableCell >
-                                <div className=" flex gap-2 items-center " >
-                                    <div className=" w-6 h-6 rounded-full bg-green-400 " />
-                                    {item.createby}
-                                </div>
-                            </TableCell>
-                            <TableCell >{item.date}</TableCell>
-                            <TableCell >{item.price}</TableCell>
-                            <TableCell >{item?.attendee} People</TableCell>
-                            <TableCell >
-                                <div className=" rounded-4xl flex justify-center items-center h-[24px] border border-bordercolor w-[68px] " >
-                                    <p className=" text-brand text-[10px] font-medium " >VIEW</p>
-                                </div>
-                            </TableCell>
+            <LoadingAnimation loading={isLoading} length={data?.content?.length} > 
+                <Table>
+                    <TableHeader>
+                        <TableRow className=" h-[47px] border-white uppercase " >
+                            <TableHead>Event Name</TableHead>
+                            <TableHead>Created By</TableHead>
+                            <TableHead>Date</TableHead>
+                            <TableHead>Ticket Price</TableHead>
+                            <TableHead>attendance</TableHead>
+                            <TableHead>ACTION</TableHead>
                         </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
+                    </TableHeader>
+                    <TableBody className=" bg-white "  >
+                        {data?.content?.map((item, index) => (
+                            <TableRow className=" h-[47px] border-white " key={index}>
+                                <TableCell >{item.eventName}</TableCell>
+                                <TableCell >
+                                    <div className=" flex gap-2 items-center " >
+                                        <div className=" w-fit h-fit rounded-full " >
+                                            <UserImage data={item?.createdBy}  />
+                                        </div>
+                                        {item.createdBy?.firstName+" "+item?.createdBy?.lastName}
+                                    </div>
+                                </TableCell>
+                                <TableCell >{dateFormat(item?.startDate)}</TableCell>
+                                <TableCell >{numberFormatNaire(item.maxPrice)}</TableCell>
+                                <TableCell >{item?.interestedUsers?.length} People</TableCell>
+                                <TableCell >
+                                    <DrawerSheet header="Event" >
+                                        <EventInfoModal data={item} />
+                                    </DrawerSheet>
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </LoadingAnimation>
             <CustomPagination />
             <div className=" h-9 w-full " />
         </div>

@@ -2,6 +2,7 @@
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom"; 
 import { AuthPage, BusinessHomePage, CommunityHomePage, DashboardPage, EventHomePage, FundraiserHomePage, TransactionHomePage, UserHomePage } from './pages';
 import { DashboardLayout } from "./components/dashboardLayout";
+import { UserTable } from "./components/dashboard";
 
 function App() {
   const router = createBrowserRouter(
@@ -13,6 +14,7 @@ function App() {
           <Route index element={<DashboardPage />} />
           <Route path="user" >
             <Route index element={<UserHomePage />} />
+            <Route path="alluser" element={<UserTable />} />
           </Route>
           <Route path="event" >
             <Route index element={<EventHomePage />} />

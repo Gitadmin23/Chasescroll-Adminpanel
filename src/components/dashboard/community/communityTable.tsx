@@ -7,7 +7,8 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { Button } from "../../ui/button"
-import { CustomPagination } from "../../shared"
+import { CustomPagination, DrawerSheet } from "../../shared"
+import { CommunityInfoModal } from "@/components/modal"
 
 const business = [
     {
@@ -81,9 +82,9 @@ export default function CommunityTable() {
                             <TableCell >{item.type}</TableCell>
                             <TableCell >{item?.user} People </TableCell>
                             <TableCell >
-                                <div className=" rounded-4xl flex justify-center items-center h-[24px] border border-bordercolor w-[68px] " >
-                                    <p className=" text-brand text-[10px] font-medium " >VIEW</p>
-                                </div>
+                                <DrawerSheet header="Community Information" >
+                                    <CommunityInfoModal />
+                                </DrawerSheet>
                             </TableCell>
                         </TableRow>
                     ))}

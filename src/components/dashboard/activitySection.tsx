@@ -52,7 +52,7 @@ export default function ActivitySection() {
                                 </div>
                             </div> 
                         </div>
-                        <DoughnutChart />
+                        <DoughnutChart color={["#00B69B", "#FDA21C"]} />
                     </div>
                 </div>  
             </div>

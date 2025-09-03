@@ -8,6 +8,7 @@ export { default as UserTotalInfo } from "./user/userTotaIInfo"
 export { default as FundraiserTotalInfo } from "./fundraiser/fundraiserTotaIInfo"
 export { default as BusinesslInfo } from "./business/businessInfo"
 export { default as CommunityTotaIInfo } from "./community/communityTotaIInfo"
+export { default as TransactionTotaIInfo } from "./transaction/transactionInfo"
 
 
 export { default as UserGraph } from "./user/userGraph"

@@ -7,7 +7,13 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { Button } from "../../ui/button"
-import { CustomPagination } from "../../shared"
+import { CustomPagination, DrawerSheet } from "../../shared"
+import { BusinessInfoModal } from "@/components/modal"
+import type { IPagination } from "@/helpers/models/pagination"
+import { useFetchData } from "@/hooks/useFetchData"
+import type { IBusiness } from "@/helpers/models/product"
+import { dateFormat } from "@/helpers/utils/dateFormat"
+import { formatNumber } from "@/helpers/utils/numberFormat"
 
 const business = [
     {
@@ -48,6 +54,17 @@ const business = [
 ]
 
 export default function BusinessTable() {
+
+    const { data, isLoading } = useFetchData<IPagination<IBusiness>>(`/business-service/search`, "business",
+        // {
+        //     page: page,
+        //     size: size
+        // }
+    );
+    
+    console.log(data);
+    
+
     return (
         <div className=" w-full flex flex-col gap-1 " >
             <div className=" w-full flex justify-between items-center rounded-md py-3 px-4 bg-white " >
@@ -68,22 +85,22 @@ export default function BusinessTable() {
                     </TableRow>
                 </TableHeader>
                 <TableBody className=" bg-white "  >
-                    {business.map((item, index) => (
+                    {data?.content.map((item, index) => (
                         <TableRow className=" h-[47px] border-white " key={index}>
                             <TableCell >{item.name}</TableCell>
                             <TableCell >
                                 <div className=" flex gap-2 items-center " >
                                     <div className=" w-6 h-6 rounded-full bg-green-400 " />
-                                    {item.createby}
+                                    {item.vendor?.firstName+" "+item?.vendor?.lastName}
                                 </div>
                             </TableCell>
-                            <TableCell >{item.date}</TableCell>
-                            <TableCell >{item.price}</TableCell>
-                            <TableCell >{item?.service}</TableCell>
-                            <TableCell >
-                                <div className=" rounded-4xl flex justify-center items-center h-[24px] border border-bordercolor w-[68px] " >
-                                    <p className=" text-brand text-[10px] font-medium " >VIEW</p>
-                                </div>
+                            <TableCell >{dateFormat(item?.createdDate)}</TableCell>
+                            <TableCell >{formatNumber(item.price)}</TableCell>
+                            <TableCell >{item?.category?.replace("_", " ")?.replace("_", " ")?.replace("_", " ")?.replace("_", " ")?.replace("_", " ")}</TableCell>
+                            <TableCell > 
+                            <DrawerSheet header="Service Details" >
+                                <BusinessInfoModal data={item} />
+                            </DrawerSheet>
                             </TableCell>
                         </TableRow>
                     ))}
