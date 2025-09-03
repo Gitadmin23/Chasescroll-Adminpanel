@@ -15,47 +15,47 @@ import type { IBusiness } from "@/helpers/models/product"
 import { dateFormat } from "@/helpers/utils/dateFormat"
 import { formatNumber } from "@/helpers/utils/numberFormat"
 
-const business = [
-    {
-        name: "next Generation Barbers",
-        createby: "Bradford",
-        date: "03/04/2024",
-        price: "$100-$200",
-        service: "Hair Cut & Pedicure"
-    },
-    {
-        name: "next Generation Barbers",
-        createby: "Bradford",
-        date: "03/04/2024",
-        price: "$100-$200",
-        service: "Hair Cut & Pedicure"
-    },
-    {
-        name: "next Generation Barbers",
-        createby: "Bradford",
-        date: "03/04/2024",
-        price: "$100-$200",
-        service: "Hair Cut & Pedicure"
-    },
-    {
-        name: "next Generation Barbers",
-        createby: "Bradford",
-        date: "03/04/2024",
-        price: "$100-$200",
-        service: "Hair Cut & Pedicure"
-    },
-    {
-        name: "next Generation Barbers",
-        createby: "Bradford",
-        date: "03/04/2024",
-        price: "$100-$200",
-        service: "Hair Cut & Pedicure"
-    },
-]
+// const business = [
+//     {
+//         name: "next Generation Barbers",
+//         createby: "Bradford",
+//         date: "03/04/2024",
+//         price: "$100-$200",
+//         service: "Hair Cut & Pedicure"
+//     },
+//     {
+//         name: "next Generation Barbers",
+//         createby: "Bradford",
+//         date: "03/04/2024",
+//         price: "$100-$200",
+//         service: "Hair Cut & Pedicure"
+//     },
+//     {
+//         name: "next Generation Barbers",
+//         createby: "Bradford",
+//         date: "03/04/2024",
+//         price: "$100-$200",
+//         service: "Hair Cut & Pedicure"
+//     },
+//     {
+//         name: "next Generation Barbers",
+//         createby: "Bradford",
+//         date: "03/04/2024",
+//         price: "$100-$200",
+//         service: "Hair Cut & Pedicure"
+//     },
+//     {
+//         name: "next Generation Barbers",
+//         createby: "Bradford",
+//         date: "03/04/2024",
+//         price: "$100-$200",
+//         service: "Hair Cut & Pedicure"
+//     },
+// ]
 
 export default function BusinessTable() {
 
-    const { data, isLoading } = useFetchData<IPagination<IBusiness>>(`/business-service/search`, "business",
+    const { data } = useFetchData<IPagination<IBusiness>>(`/business-service/search`, "business",
         // {
         //     page: page,
         //     size: size

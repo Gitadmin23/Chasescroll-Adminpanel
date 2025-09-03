@@ -2,7 +2,7 @@ import type { IFundraising } from "@/helpers/models/fundraising";
 import { FundraiserInfoModal } from "../modal";
 // import { Button } from "../ui/button";
 import DrawerSheet from "./drawerSheet";
-import { dateFormat, dateFormatDashboad } from "@/helpers/utils/dateFormat";
+import { dateFormatDashboad } from "@/helpers/utils/dateFormat";
 import { formatNumber } from "@/helpers/utils/numberFormat";
 
 

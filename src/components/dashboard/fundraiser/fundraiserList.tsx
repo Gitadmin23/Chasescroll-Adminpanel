@@ -1,62 +1,62 @@
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table"
+// import {
+//     Table,
+//     TableBody,
+//     TableCell,
+//     TableHead,
+//     TableHeader,
+//     TableRow,
+// } from "@/components/ui/table"
 import { Button } from "../../ui/button"
-import { CustomPagination, FundraiserCard } from "../../shared"
+import { FundraiserCard } from "../../shared"
 import { useFetchData } from "@/hooks/useFetchData";
 import type { IPagination } from "@/helpers/models/pagination";
 import LoadingAnimation from "@/components/shared/loadingAnimation";
 import type { IFundraising } from "@/helpers/models/fundraising";
 
-const event = [
-    {
-        name: "Chivido2024",
-        createby: "Bradford",
-        date: "03/04/2024",
-        price: "$100-$200",
-        attendee: "2,230 People "
-    },
-    {
-        name: "Chivido2024",
-        createby: "Bradford",
-        date: "03/04/2024",
-        price: "$100-$200",
-        attendee: "2,230 People "
-    },
-    {
-        name: "Chivido2024",
-        createby: "Bradford",
-        date: "03/04/2024",
-        price: "$100-$200",
-        attendee: "2,230 People "
-    },
-    {
-        name: "Chivido2024",
-        createby: "Bradford",
-        date: "03/04/2024",
-        price: "$100-$200",
-        attendee: "2,230 People "
-    },
-    {
-        name: "Chivido2024",
-        createby: "Bradford",
-        date: "03/04/2024",
-        price: "$100-$200",
-        attendee: "2,230 People "
-    },
-    {
-        name: "Chivido2024",
-        createby: "Bradford",
-        date: "03/04/2024",
-        price: "$100-$200",
-        attendee: "2,230 People "
-    },
-]
+// const event = [
+//     {
+//         name: "Chivido2024",
+//         createby: "Bradford",
+//         date: "03/04/2024",
+//         price: "$100-$200",
+//         attendee: "2,230 People "
+//     },
+//     {
+//         name: "Chivido2024",
+//         createby: "Bradford",
+//         date: "03/04/2024",
+//         price: "$100-$200",
+//         attendee: "2,230 People "
+//     },
+//     {
+//         name: "Chivido2024",
+//         createby: "Bradford",
+//         date: "03/04/2024",
+//         price: "$100-$200",
+//         attendee: "2,230 People "
+//     },
+//     {
+//         name: "Chivido2024",
+//         createby: "Bradford",
+//         date: "03/04/2024",
+//         price: "$100-$200",
+//         attendee: "2,230 People "
+//     },
+//     {
+//         name: "Chivido2024",
+//         createby: "Bradford",
+//         date: "03/04/2024",
+//         price: "$100-$200",
+//         attendee: "2,230 People "
+//     },
+//     {
+//         name: "Chivido2024",
+//         createby: "Bradford",
+//         date: "03/04/2024",
+//         price: "$100-$200",
+//         attendee: "2,230 People "
+//     },
+// ]
 
 export default function FundraiserList() {
 

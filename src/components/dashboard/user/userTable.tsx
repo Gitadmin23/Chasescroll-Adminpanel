@@ -11,45 +11,45 @@ import { CustomPagination, DrawerSheet } from "../../shared"
 import { UserModal } from "@/components/modal"
 import { useFetchData } from "@/hooks/useFetchData"
 import type { IUser } from "@/helpers/models/user"
-import { useState } from "react"
+// import { useState } from "react"
 import LoadingAnimation from "@/components/shared/loadingAnimation"
 import type { IPagination } from "@/helpers/models/pagination"
-import FormInput from "@/components/shared/customInput"
-import { RiSearch2Line } from "react-icons/ri";
+// import FormInput from "@/components/shared/customInput"
+// import { RiSearch2Line } from "react-icons/ri";
 import { useNavigate } from "react-router-dom"
 
-const user = [
-    {
-        username: "@Chivido24",
-        email: "Chivido24@gmail.com",
-        event: "35",
-        post: "32",
-    },
-    {
-        username: "@Chivido24",
-        email: "Chivido24@gmail.com",
-        event: "35",
-        post: "32",
-    },
-    {
-        username: "@Chivido24",
-        email: "Chivido24@gmail.com",
-        event: "35",
-        post: "32",
-    },
-    {
-        username: "@Chivido24",
-        email: "Chivido24@gmail.com",
-        event: "35",
-        post: "32",
-    },
-    {
-        username: "@Chivido24",
-        email: "Chivido24@gmail.com",
-        event: "35",
-        post: "32",
-    },
-]
+// const user = [
+//     {
+//         username: "@Chivido24",
+//         email: "Chivido24@gmail.com",
+//         event: "35",
+//         post: "32",
+//     },
+//     {
+//         username: "@Chivido24",
+//         email: "Chivido24@gmail.com",
+//         event: "35",
+//         post: "32",
+//     },
+//     {
+//         username: "@Chivido24",
+//         email: "Chivido24@gmail.com",
+//         event: "35",
+//         post: "32",
+//     },
+//     {
+//         username: "@Chivido24",
+//         email: "Chivido24@gmail.com",
+//         event: "35",
+//         post: "32",
+//     },
+//     {
+//         username: "@Chivido24",
+//         email: "Chivido24@gmail.com",
+//         event: "35",
+//         post: "32",
+//     },
+// ]
 
 export default function UserTable({
     show
@@ -57,15 +57,15 @@ export default function UserTable({
     show?: boolean
 }) {
 
-    const [page, setPage] = useState(0)
-    const [size, setSize] = useState(20)
-    const [search, setSearch] = useState("")
+    // const [page, setPage] = useState(0)
+    // const [size, setSize] = useState(20)
+    // const [search, setSearch] = useState("")
 
     const navigate = useNavigate()
 
     const { data, isLoading } = useFetchData<IPagination<IUser>>(`/user/search-users`, "user", {
-        page: page,
-        size: show ? 6 : size
+        page: 0,
+        size: show ? 6 : 20
     });
 
     return (
@@ -84,11 +84,11 @@ export default function UserTable({
 
                         </div>
                         <div className=" w-fit flex items-center " >
-                            <div className=" w-[230px] " >
+                            {/* <div className=" w-[230px] " >
                                 <FormInput hasFrontIcon={true}  icon={<RiSearch2Line size={"20px"} />} otherVaule={search} name={""} type="search" setValue={function (name: string, value: string): void {
                                     throw new Error("Function not implemented.")
                                 }} />
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 )}

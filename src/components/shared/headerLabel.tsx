@@ -1,6 +1,6 @@
 import { useLocation } from "react-router"
 import { Button } from "../ui/button"
-import { ChevronRight, Plus } from "lucide-react"
+import { Plus } from "lucide-react"
 
 export default function HeaderLabel() {
 

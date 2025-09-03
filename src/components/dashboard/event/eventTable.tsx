@@ -17,50 +17,50 @@ import { dateFormat } from "@/helpers/utils/dateFormat"
 import { numberFormatNaire } from "@/helpers/utils/formatNumberWithK"
 import UserImage from "@/components/shared/userImage"
 
-const event = [
-    {
-        name: "Chivido2024",
-        createby: "Bradford",
-        date: "03/04/2024",
-        price: "$100-$200",
-        attendee: "2,230 People "
-    },
-    {
-        name: "Chivido2024",
-        createby: "Bradford",
-        date: "03/04/2024",
-        price: "$100-$200",
-        attendee: "2,230 People "
-    },
-    {
-        name: "Chivido2024",
-        createby: "Bradford",
-        date: "03/04/2024",
-        price: "$100-$200",
-        attendee: "2,230 People "
-    },
-    {
-        name: "Chivido2024",
-        createby: "Bradford",
-        date: "03/04/2024",
-        price: "$100-$200",
-        attendee: "2,230 People "
-    },
-    {
-        name: "Chivido2024",
-        createby: "Bradford",
-        date: "03/04/2024",
-        price: "$100-$200",
-        attendee: "2,230 People "
-    },
-    {
-        name: "Chivido2024",
-        createby: "Bradford",
-        date: "03/04/2024",
-        price: "$100-$200",
-        attendee: "2,230 People "
-    },
-]
+// const event = [
+//     {
+//         name: "Chivido2024",
+//         createby: "Bradford",
+//         date: "03/04/2024",
+//         price: "$100-$200",
+//         attendee: "2,230 People "
+//     },
+//     {
+//         name: "Chivido2024",
+//         createby: "Bradford",
+//         date: "03/04/2024",
+//         price: "$100-$200",
+//         attendee: "2,230 People "
+//     },
+//     {
+//         name: "Chivido2024",
+//         createby: "Bradford",
+//         date: "03/04/2024",
+//         price: "$100-$200",
+//         attendee: "2,230 People "
+//     },
+//     {
+//         name: "Chivido2024",
+//         createby: "Bradford",
+//         date: "03/04/2024",
+//         price: "$100-$200",
+//         attendee: "2,230 People "
+//     },
+//     {
+//         name: "Chivido2024",
+//         createby: "Bradford",
+//         date: "03/04/2024",
+//         price: "$100-$200",
+//         attendee: "2,230 People "
+//     },
+//     {
+//         name: "Chivido2024",
+//         createby: "Bradford",
+//         date: "03/04/2024",
+//         price: "$100-$200",
+//         attendee: "2,230 People "
+//     },
+// ]
 
 export default function EventTable() {
 

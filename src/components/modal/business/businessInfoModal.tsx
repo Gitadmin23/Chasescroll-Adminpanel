@@ -1,8 +1,8 @@
 import ProductImageScroller from "@/components/shared/productImageScroller";
 import UserImage from "@/components/shared/userImage";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+// import { Input } from "@/components/ui/input";
+// import { Textarea } from "@/components/ui/textarea";
 import type { IBusiness } from "@/helpers/models/product";
 import { dateFormat, timeFormat } from "@/helpers/utils/dateFormat";
 import { IoMdCalendar, IoMdTime } from "react-icons/io";
