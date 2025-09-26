@@ -46,7 +46,7 @@ export default function EventInfoModal({
                     <p className=" font-medium text-bodytext text-sm " >Event Description</p>
 
                     <div className=" w-full h-[47px] flex gap-3 items-center rounded-xl bg-[#F9F9FB] px-3 " >
-                        <p className=" text-sm " >{data?.eventDescription}</p>
+                        <div className="  text-sm" dangerouslySetInnerHTML={{__html: data?.eventDescription}} />
                     </div>
                     {/* <Textarea placeholder="@Miracle20" className=" bg-[#F6F6F8] h-[16px] rounded-2xl border-[#F6F6F8] outline-none " /> */}
                 </div>

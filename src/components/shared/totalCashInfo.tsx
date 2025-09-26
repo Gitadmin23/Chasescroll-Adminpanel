@@ -1,3 +1,4 @@
+import { RiBookMarkedFill } from "react-icons/ri";
 import { AreaGraph } from "../graphs";
 
 
@@ -16,11 +17,11 @@ export default function TotalCashInfo() {
                 <div className=" w-[400px] h-full bg-white flex flex-col justify-center px-6 pt-8 pb-14 rounded-[12px] " >
                     <div className=" flex w-full justify-between  " >
                         <div className=" flex flex-col gap-3 " >
-                            <p className=" font-medium " >Total Fundraising</p>
+                            <p className=" font-medium " >Ticket sales</p>
                             <p className=" font-bold text-2xl " >$89,000</p>
                         </div>
-                        <div className=" w-[75px] h-[71px] bg-[#FFDEF1] flex justify-center items-center rounded-2xl " >
-
+                        <div className=" w-[75px] h-[71px] bg-[#FFDED1] flex justify-center items-center rounded-2xl " >
+                            <RiBookMarkedFill color="#FF9066" size={"30px"} />
                         </div>
                     </div> 
                     <p className=" text-sm text-bodytext mt-auto " ><span className=" text-customgreen " >4.3%</span> Down from yesterday</p>

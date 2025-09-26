@@ -1,5 +1,4 @@
-import type { IUser } from "@/helpers/models/user";
-import { CustomSelect } from "../shared";
+import type { IUser } from "@/helpers/models/user"; 
 import { Button } from "../ui/button"; 
 import UserImage from "../shared/userImage";
 import { useFetchData } from "@/hooks/useFetchData";
@@ -7,6 +6,9 @@ import type { IPagination } from "@/helpers/models/pagination";
 import type { IEvent } from "@/helpers/models/event";
 import { dateFormatDay, dateFormatMonth } from "@/helpers/utils/dateFormat";
 import LoadingAnimation from "../shared/loadingAnimation";
+import CustomButton from "../shared/customButton";
+import { IMAGE_URL } from "@/helpers/services/urls";
+import useSuspend from "@/hooks/useSuspend";
 
 export default function UserModal({data} : {data: IUser}) {
 
@@ -14,8 +16,8 @@ export default function UserModal({data} : {data: IUser}) {
         return (
             <div className=" w-fit rounded-md h-[140px] flex ga=-1 bg-[#F6F6F8] border border-bordercolor " >
                 <div className=" w-fit " >
-                    <div className=" w-[144px] h-full bg-red-400 rounded-md " >
-                    
+                    <div className=" w-[144px] h-[140px] bg-gray-200 rounded-md flex justify-center " >
+                        <img src={IMAGE_URL + event?.currentPicUrl} className=" rounded-md h-[140px] " alt={event?.eventName} />
                     </div>
                 </div>
                 <div className=" flex flex-col gap-1 w-[160px]  " >
@@ -36,14 +38,16 @@ export default function UserModal({data} : {data: IUser}) {
     }
 
 
-    const { data: eventData, isLoading } = useFetchData<IPagination<IEvent>>(`/events/events`, "event",
-        {
+    const { data: eventData, isLoading } = useFetchData<IPagination<IEvent>>({endpoint: `/events/events`, name: "event",
+        params: {
             createdBy: data?.userId
         }
-    ); 
+    }); 
 
-    console.log(eventData); 
+    const { data: groupData } = useFetchData<any>({endpoint: `/group/group-count/${data?.userId}`,name:  "group"}); 
 
+    const { suspendUser } = useSuspend() 
+    
     return (
         <div className=" w-full flex flex-col gap-6 px-4 pb-4 " >
             <div className=" w-full flex justify-center " >
@@ -54,12 +58,12 @@ export default function UserModal({data} : {data: IUser}) {
             <div className=" w-full rounded-2xl px-3 py-5 gap-4 border border-bordercolor flex justify-around " >
                 <div className=" w-full flex gap-2 flex-col justify-center items-center " >
                     <p className=" text-xs " >Events</p>
-                    <p className=" text-xs font-semibold " >{eventData?.totalElements}</p>
+                    <p className=" text-xs font-semibold " >{eventData?.totalElements ?? 0}</p>
                     <Button className=" h-6 rounded-full w-full text-xs font-medium " >view</Button>
                 </div>
                 <div className=" w-full flex gap-2 flex-col justify-center items-center " >
                     <p className=" text-xs " >Community</p>
-                    <p className=" text-xs font-semibold " >0</p>
+                    <p className=" text-xs font-semibold " >{groupData ?? 0}</p>
                     <Button className=" h-6 rounded-full w-full text-xs font-medium " >view</Button>
                 </div>
                 <div className=" w-full flex gap-2 flex-col justify-center items-center " >
@@ -113,11 +117,12 @@ export default function UserModal({data} : {data: IUser}) {
                     </div>
                 </div> 
                 </LoadingAnimation>
-                <CustomSelect placeholder="Select" classname=" rounded-full border border-bordercolor bg-[#F1F1F180] !h-[48px] " data={[{
+                {/* <CustomSelect placeholder="Select" classname=" rounded-full border border-bordercolor bg-[#F1F1F180] !h-[48px] " data={[{
                     label: "test",
                     value: "testing"
-                }]}  />
-                <Button className=" w-full h-[48px] bg-brand rounded-full mt-3 " >Submit</Button>
+                }]}  /> */}
+                <CustomButton onClick={()=> suspendUser.mutate(data?.userId)} isLoading={suspendUser.isPending}  className=" w-full h-[48px] bg-[#FDD7D766] text-[#F62727] hover:bg-[#FDD7D766] hover:text-[#F62727] rounded-full mt-3 " >Suspend</CustomButton>
+                {/* <Button className=" w-full h-[48px] bg-brand rounded-full mt-3 " >Submit</Button> */}
             </div>
         </div>
     )

@@ -1,11 +1,16 @@
+import CustomButton from "@/components/shared/customButton";
 import { Button } from "@/components/ui/button";
 import type { IFundraising } from "@/helpers/models/fundraising";
 import { IMAGE_URL } from "@/helpers/services/urls";
 import { dateFormat } from "@/helpers/utils/dateFormat";
 import { formatNumber } from "@/helpers/utils/numberFormat";
+import useSuspend from "@/hooks/useSuspend";
 
 
 export default function FundraiserInfoModal({data} : {data: IFundraising}) {
+
+    const { suspendDonation } = useSuspend()
+
     return (
         <div className=" w-full flex flex-col gap-6 px-4 pb-4 " >
             <div className=" h-[233px] rounded-md " >
@@ -61,7 +66,7 @@ export default function FundraiserInfoModal({data} : {data: IFundraising}) {
             </div>
             <div className=" w-full flex flex-col gap-3 " >
                 <Button className=" w-full h-[53px] text-sm rounded-full " >View Users Report</Button>
-                <Button variant="outline" className=" w-full h-[53px] text-sm rounded-full border-brand text-brand " >Suspend Fundraising</Button>
+                <CustomButton onClick={()=> suspendDonation.mutate(data?.id)} isLoading={suspendDonation?.isPending} variant="outline" className=" w-full h-[53px] text-sm rounded-full border-brand text-brand " >Suspend Fundraising</CustomButton>
             </div>
         </div>
     )

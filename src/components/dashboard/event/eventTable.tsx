@@ -16,6 +16,11 @@ import LoadingAnimation from "@/components/shared/loadingAnimation"
 import { dateFormat } from "@/helpers/utils/dateFormat"
 import { numberFormatNaire } from "@/helpers/utils/formatNumberWithK"
 import UserImage from "@/components/shared/userImage"
+import { FilterLayout } from "@/components/filter"
+import { usePagintion } from "@/helpers/store/usePagination"
+import { useSearchStore } from "@/helpers/store/useSearchText"
+import { useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 
 // const event = [
 //     {
@@ -62,34 +67,53 @@ import UserImage from "@/components/shared/userImage"
 //     },
 // ]
 
-export default function EventTable() {
+export default function EventTable({
+    show
+}: {
+    show?: boolean
+}) {
+
+    const navigate = useNavigate()
+    const { search } = useSearchStore((state => state))
+    const { updateTotalPage, page, pageSize } = usePagintion((state) => state)
 
 
-    const { data, isLoading } = useFetchData<IPagination<IEvent>>(`/events/events`, "event",
-        // {
-        //     page: page,
-        //     size: size
-        // }
-    ); 
+    const { data, isLoading } = useFetchData<IPagination<IEvent>>({
+        endpoint: `/events/events`, name: "event", params: {
+            page: page - 1,
+            size: show ? 6 : pageSize,
+            searchText: search
+        }
+    });
+
+    useEffect(() => {
+        if (!isLoading) {
+            updateTotalPage(Number(data?.totalPages))
+        }
+    }, [isLoading])
 
     return (
         <div className=" w-full flex flex-col gap-1 " >
-            <div className=" w-full flex justify-between items-center rounded-md py-3 px-4 bg-white " >
-                <p className=" text-sm font-semibold " >Recent Activities</p>
-                <div className=" flex gap-2 items-center " >
-                    <div className=" w-fit px-4 h-[40px] text-brand bg-[#F3FAFE] text-xs font-medium rounded-[20px] flex justify-center items-center " >
-                        Upcoming
+            {show ? (
+                <div className=" w-full flex justify-between items-center rounded-md py-3 px-4 bg-white " >
+                    <p className=" text-sm font-semibold " >Recent Activities</p>
+                    <div className=" flex gap-2 items-center " >
+                        <div className=" w-fit px-4 h-[40px] text-brand bg-[#F3FAFE] text-xs font-medium rounded-[20px] flex justify-center items-center " >
+                            Upcoming
+                        </div>
+                        <div className=" w-fit px-4 h-[40px] gap-2 text-xs font-medium rounded-[20px] flex justify-center items-center " >
+                            Past Event
+                            <div className=" w-2 h-2 rounded-full bg-brand " />
+                        </div>
                     </div>
-                    <div className=" w-fit px-4 h-[40px] gap-2 text-xs font-medium rounded-[20px] flex justify-center items-center " >
-                        Past Event
-                        <div className=" w-2 h-2 rounded-full bg-brand " />
-                    </div>
+                    <Button onClick={()=> navigate("/dashboard/event/allevent")} className=" w-fit px-4 h-[40px] text-sm rounded-full " >
+                        View All
+                    </Button>
                 </div>
-                <Button className=" w-fit px-4 h-[40px] text-sm rounded-full " >
-                    View All
-                </Button>
-            </div>
-            <LoadingAnimation loading={isLoading} length={data?.content?.length} > 
+            ) : (
+                <FilterLayout />
+            )}
+            <LoadingAnimation loading={isLoading} length={data?.content?.length} >
                 <Table>
                     <TableHeader>
                         <TableRow className=" h-[47px] border-white uppercase " >
@@ -108,9 +132,9 @@ export default function EventTable() {
                                 <TableCell >
                                     <div className=" flex gap-2 items-center " >
                                         <div className=" w-fit h-fit rounded-full " >
-                                            <UserImage data={item?.createdBy}  />
+                                            <UserImage data={item?.createdBy} />
                                         </div>
-                                        {item.createdBy?.firstName+" "+item?.createdBy?.lastName}
+                                        {item.createdBy?.firstName + " " + item?.createdBy?.lastName}
                                     </div>
                                 </TableCell>
                                 <TableCell >{dateFormat(item?.startDate)}</TableCell>
@@ -126,8 +150,10 @@ export default function EventTable() {
                     </TableBody>
                 </Table>
             </LoadingAnimation>
-            <CustomPagination />
+            {(Number(data?.numberOfElements) > pageSize && !show) && (
+                <CustomPagination totalElement={data?.totalElements + ""} />
+            )}
             <div className=" h-9 w-full " />
         </div>
     )
-}
+} 

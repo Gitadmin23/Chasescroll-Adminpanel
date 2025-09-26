@@ -2,7 +2,7 @@
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom"; 
 import { AuthPage, BusinessHomePage, CommunityHomePage, DashboardPage, EventHomePage, FundraiserHomePage, TransactionHomePage, UserHomePage } from './pages';
 import { DashboardLayout } from "./components/dashboardLayout";
-import { UserTable } from "./components/dashboard";
+import { CommunityTable, EventTable, FundraiserList, UserTable } from "./components/dashboard";
 
 function App() {
   const router = createBrowserRouter(
@@ -18,15 +18,19 @@ function App() {
           </Route>
           <Route path="event" >
             <Route index element={<EventHomePage />} />
+            <Route path="allevent" element={<EventTable/>} />
           </Route>
           <Route path="business" >
             <Route index element={<BusinessHomePage />} />
+            <Route path="allbusiness" element={<BusinessHomePage />} />
           </Route>
           <Route path="fundraiser" >
             <Route index element={<FundraiserHomePage />} />
+            <Route path="allfundraiser" element={<FundraiserList />} />
           </Route> 
           <Route path="community" >
             <Route index element={<CommunityHomePage />} />
+            <Route path="allcommunity" element={<CommunityTable />} />
           </Route>
           <Route path="transaction" >
             <Route index element={<TransactionHomePage />} />

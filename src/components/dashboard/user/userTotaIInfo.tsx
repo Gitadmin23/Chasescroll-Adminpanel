@@ -1,53 +1,66 @@
-import { filterDate } from "@/assets/databank/dateFilter";
-import { CustomSelect } from "../../shared";
+// import { filterDate } from "@/assets/databank/dateFilter";
+// import { CustomSelect } from "../../shared";
+import { RiUserLine, RiUserUnfollowLine } from "react-icons/ri";
+import { useFetchData } from "@/hooks/useFetchData";
+// import type { IPagination } from "@/helpers/models/pagination";
+// import type { IUser } from "@/helpers/models/user";
+import LoadingAnimation from "@/components/shared/loadingAnimation";
+// import { useFetchData } from "@/hooks/useFetchData";
 
 
 export default function UserTotalInfo() {
 
+
+
     const labelTotal = [
         {
-            name: "Total  Users"
+            name: "Total Users",
+            icon: RiUserLine,
+            color: "#4C6FFF"
         },
         {
-            name: "Suspended Users"
+            name: "Email Signin Users",
+            icon: RiUserUnfollowLine,
+            color: "#F46262"
         },
         {
-            name: "Create account with"
+            name: "Google Signin Users"
         }
     ]
 
+    const { data, isLoading } = useFetchData<{
+        "totalUsers": number,
+        "totalGoogleSigninUsers": number,
+        "totalEmailSigninUsers": number
+    }>({
+        endpoint: `/auth/analytics`, name: "user"
+    });
+ 
     return (
-        <div className=" w-full gap-4 flex text-headtext " >
-            {labelTotal?.map((item, index) => {
-                return (
-                    <div key={index} className=" w-full h-[116px] rounded-lg bg-white shadow-lg " >
-                        <div className=" w-full flex h-full py-1 " >
-                            <div className=" w-full p-4 flex flex-col " >
-                                <div className=" w-full flex items-center justify-between " >
-                                    <div className=" flex flex-col gap-1 " >
-                                        <p className=" text-bodytext text-xs " >{item?.name}</p>
-                                        <p className=" text-2xl font-semibold " >8,265</p>
+        <LoadingAnimation loading={isLoading} >
+            <div className=" w-full gap-4 flex text-headtext " >
+                {labelTotal?.map((item, index) => {
+                    return (
+                        <div key={index} className=" w-full h-[116px] flex items-center rounded-lg bg-white shadow-lg " >
+                            <div className=" w-full flex h-full py-1 " >
+                                <div className=" w-full p-4 flex flex-col " >
+                                    <div className=" w-full flex items-center justify-between " >
+                                        <div className=" flex flex-col gap-1 " >
+                                            <p className=" text-bodytext text-xs " >{item?.name}</p>
+                                            <p className=" text-2xl font-semibold " >{item?.name === "Total Users" ? data?.totalUsers : item?.name === "Email Signin Users" ? data?.totalEmailSigninUsers : data?.totalGoogleSigninUsers}</p>
+                                        </div>
+                                        <div style={{ backgroundColor: item?.color }} className={` w-[46px] h-[46px] flex justify-center items-center text-white rounded-full  `} >
+                                            {item?.icon && (
+                                                <item.icon size={"18px"} />
+                                            )}
+                                        </div>
                                     </div>
-                                    <div className=" w-[46px] h-[46px] rounded-full bg-blue-600  " >
-
-                                    </div>
-                                </div>
-                                <div className=" flex items-center gap-2 " >
-                                    <div className=" bg-[#DEFFEE] text-customgreen rounded-lg h-[24px] px-2 text-[10px] font-bold " >
-                                        +13%
-                                    </div>
-                                    <p className=" text-[10px] font-medium text-bodytext " >since last month</p>
-                                </div>
-                            </div>
-                            <div className=" h-full w-fit border-l flex justify-center items-center px-3 py-[2px] border-bordercolor " >
-                                <div className=" w-[114px] " >
-                                    <CustomSelect placeholder="All Time" data={filterDate} />
                                 </div>
                             </div>
                         </div>
-                    </div>
-                )
-            })}
-        </div>
+                    )
+                })}
+            </div>
+        </LoadingAnimation>
     )
 }
