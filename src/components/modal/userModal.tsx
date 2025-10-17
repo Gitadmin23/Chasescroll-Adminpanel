@@ -1,5 +1,5 @@
-import type { IUser } from "@/helpers/models/user"; 
-import { Button } from "../ui/button"; 
+import type { IUser } from "@/helpers/models/user";
+import { Button } from "../ui/button";
 import UserImage from "../shared/userImage";
 import { useFetchData } from "@/hooks/useFetchData";
 import type { IPagination } from "@/helpers/models/pagination";
@@ -10,9 +10,9 @@ import CustomButton from "../shared/customButton";
 import { IMAGE_URL } from "@/helpers/services/urls";
 import useSuspend from "@/hooks/useSuspend";
 
-export default function UserModal({data} : {data: IUser}) {
+export default function UserModal({ data }: { data: IUser }) {
 
-    const EventCard = ({ event } : {event: IEvent}) => {
+    const EventCard = ({ event }: { event: IEvent }) => {
         return (
             <div className=" w-fit rounded-md h-[140px] flex ga=-1 bg-[#F6F6F8] border border-bordercolor " >
                 <div className=" w-fit " >
@@ -38,16 +38,17 @@ export default function UserModal({data} : {data: IUser}) {
     }
 
 
-    const { data: eventData, isLoading } = useFetchData<IPagination<IEvent>>({endpoint: `/events/events`, name: "event",
+    const { data: eventData, isLoading } = useFetchData<IPagination<IEvent>>({
+        endpoint: `/events/events`, name: "event",
         params: {
             createdBy: data?.userId
         }
-    }); 
+    });
 
-    const { data: groupData } = useFetchData<any>({endpoint: `/group/group-count/${data?.userId}`,name:  "group"}); 
+    const { data: groupData } = useFetchData<any>({ endpoint: `/group/group-count/${data?.userId}`, name: "group" });
 
-    const { suspendUser } = useSuspend() 
-    
+    const { suspendUser, unsuspendUser } = useSuspend()
+
     return (
         <div className=" w-full flex flex-col gap-6 px-4 pb-4 " >
             <div className=" w-full flex justify-center " >
@@ -82,7 +83,7 @@ export default function UserModal({data} : {data: IUser}) {
                 <div className=" w-full flex flex-col gap-1 " >
                     <p className=" font-medium text-bodytext " >Username</p>
                     <div className=" w-full h-[47px] flex items-center rounded-xl bg-[#F9F9FB] px-3 " >
-                        <p className=" text-sm " >{data?.firstName+" "+data?.lastName}</p>
+                        <p className=" text-sm " >{data?.firstName + " " + data?.lastName}</p>
                     </div>
                     {/* <Input placeholder="@Miracle20" className=" bg-[#F6F6F8] h-[47px] rounded-2xl border-[#F6F6F8] outline-none " /> */}
                 </div>
@@ -106,22 +107,27 @@ export default function UserModal({data} : {data: IUser}) {
                 <div className=" bg-[#F6F6F8] rounded-2xl px-5 w-fit text-xs h-[40px] flex justify-center gap-1 items-center " >
                     Event Created <span className=" text-brand " >: {eventData?.totalElements}</span>
                 </div>
-                <LoadingAnimation loading={isLoading} length={eventData?.content?.length} > 
-                <div className=" w-full h-fit flex overflow-x-auto " >
-                    <div className=" w-auto h-[140px] flex gap-2 " >
-                        {eventData?.content?.map((item, index) => {
-                            return(
-                                <EventCard key={index} event={item} />
-                            )
-                        })}
+                <LoadingAnimation loading={isLoading} length={eventData?.content?.length} >
+                    <div className=" w-full h-fit flex overflow-x-auto " >
+                        <div className=" w-auto h-[140px] flex gap-2 " >
+                            {eventData?.content?.map((item, index) => {
+                                return (
+                                    <EventCard key={index} event={item} />
+                                )
+                            })}
+                        </div>
                     </div>
-                </div> 
                 </LoadingAnimation>
                 {/* <CustomSelect placeholder="Select" classname=" rounded-full border border-bordercolor bg-[#F1F1F180] !h-[48px] " data={[{
                     label: "test",
                     value: "testing"
                 }]}  /> */}
-                <CustomButton onClick={()=> suspendUser.mutate(data?.userId)} isLoading={suspendUser.isPending}  className=" w-full h-[48px] bg-[#FDD7D766] text-[#F62727] hover:bg-[#FDD7D766] hover:text-[#F62727] rounded-full mt-3 " >Suspend</CustomButton>
+                {!data?.isSuspended && (
+                    <CustomButton onClick={() => suspendUser.mutate(data?.userId)} isLoading={suspendUser.isPending} className=" w-full h-[48px] bg-[#FDD7D766] text-[#F62727] hover:bg-[#FDD7D766] hover:text-[#F62727] rounded-full mt-3 " >Suspend</CustomButton>
+                )}
+                {data?.isSuspended && (
+                    <CustomButton onClick={() => unsuspendUser.mutate(data?.userId)} isLoading={unsuspendUser.isPending} className=" w-full h-[48px] bg-[#FDD7D766] text-[#F62727] hover:bg-[#FDD7D766] hover:text-[#F62727] rounded-full mt-3 " >UnSuspend</CustomButton>
+                )} 
                 {/* <Button className=" w-full h-[48px] bg-brand rounded-full mt-3 " >Submit</Button> */}
             </div>
         </div>

@@ -10,6 +10,7 @@ export { default as BusinesslInfo } from "./business/businessInfo"
 export { default as CommunityTotaIInfo } from "./community/communityTotaIInfo"
 export { default as TransactionTotaIInfo } from "./transaction/transactionInfo"
 
+export { default as TransactionTable } from "./transaction/transactionTable"
 
 export { default as UserGraph } from "./user/userGraph"
 

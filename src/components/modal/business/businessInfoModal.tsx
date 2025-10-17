@@ -1,9 +1,7 @@
 import CustomButton from "@/components/shared/customButton";
 import ProductImageScroller from "@/components/shared/productImageScroller";
 import UserImage from "@/components/shared/userImage";
-import { Button } from "@/components/ui/button";
-// import { Input } from "@/components/ui/input";
-// import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button"; 
 import type { IBusiness } from "@/helpers/models/product";
 import { dateFormat, timeFormat } from "@/helpers/utils/dateFormat";
 import useSuspend from "@/hooks/useSuspend";
@@ -11,7 +9,17 @@ import { IoMdCalendar, IoMdTime } from "react-icons/io";
 
 export default function BusinessInfoModal({ data, selected }: { data: IBusiness | any, selected?: string }) {
 
-    const { suspendService, suspendProduce, suspendRental } = useSuspend()
+    const { suspendService, suspendProduce, suspendRental } = useSuspend(selected)
+
+    const clickHandler = (item: string) => {
+        if(selected === "Service") {
+            suspendService.mutate(item)
+        } else if (selected === "Rental") {
+            suspendRental.mutate(item)
+        } else if (selected === "Product") {
+            suspendProduce.mutate(item)
+        }
+    }
 
     return (
         <div className=" w-full flex flex-col gap-6 px-4 pb-4 " >
@@ -95,8 +103,8 @@ export default function BusinessInfoModal({ data, selected }: { data: IBusiness 
                     </div>
                 </div>
             </div>
-            <div className=" w-full flex justify-between gap-2 " >
-                <CustomButton disabled={selected !== "Service"} onClick={()=> suspendService.mutate(data?.id)} isLoading={suspendService.isPending || suspendProduce.isPending || suspendRental.isPending} className=" w-[50%] h-[44px] text-xs rounded-full " >Suspend Business</CustomButton>
+            <div className=" w-full flex z-30 justify-between gap-2 " > 
+                <CustomButton onClick={()=> clickHandler(data?.id)} isLoading={suspendService.isPending || suspendProduce.isPending || suspendRental.isPending} className=" w-[50%] h-[44px] text-xs rounded-full " >{data.isSuspended ?  "Unsuspend" : "Suspend"} Business</CustomButton>
                 <Button variant="outline" className=" w-[50%] h-[44px] text-xs rounded-full border-brand text-brand " >Close</Button>
             </div>
         </div>

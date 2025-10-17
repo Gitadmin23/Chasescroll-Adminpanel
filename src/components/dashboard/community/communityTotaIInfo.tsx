@@ -1,7 +1,10 @@
 // import { useFetchData } from "@/hooks/useFetchData";
 import { CiCreditCard1 } from "react-icons/ci";
-import { BsClockHistory, BsFillFileBarGraphFill } from "react-icons/bs";
-import { CgSandClock } from "react-icons/cg";
+import { BsClockHistory, BsFillFileBarGraphFill } from "react-icons/bs"; 
+import { useFetchData } from "@/hooks/useFetchData";
+import LoadingAnimation from "@/components/shared/loadingAnimation";
+import { formatNumber } from "@/helpers/utils/numberFormat";
+// import { useFetchData } from "@/hooks/useFetchData";
 // import LoadingAnimation from "@/components/shared/loadingAnimation";
 
 export default function CommunityTotalInfo() {
@@ -22,30 +25,27 @@ export default function CommunityTotalInfo() {
             bgcolor: "#68DBF2",
             icon: BsClockHistory
         },
-        {
-            name: "Communities Members",
-            bgcolor: "#F7936F",
-            icon: CgSandClock
-        }
+        // {
+        //     name: "Communities Members",
+        //     bgcolor: "#F7936F",
+        //     icon: CgSandClock
+        // }
     ]
 
 
-    // const { data: analytics, isLoading } = useFetchData<{
-    //     "totalBusinesses": number,
-    //     "totalProducts": number,
-    //     "totalRentals": number,
-    //     "totalBookings": number,
-    //     "totalOrders": number,
-    //     "totalReciepts": number
-    // }>({
-    //     endpoint: `/group/admin/analytics/get-total`, name: "groupanalytics"
-    // });
+    const { data: analytics, isLoading } = useFetchData<{
+        "totalGroups": number,
+        "totalPublicGroup": number,
+        "totalPrivateGroup": number
+    }>({
+        endpoint: `/group/admin/analytics/get-total`, name: "groupanalytics"
+    });
 
-    // console.log(analytics);
+    console.log(analytics);
 
 
     return (
-        // <LoadingAnimation loading={isLoading} > 
+        <LoadingAnimation loading={isLoading} > 
             <div className=" w-full gap-4 flex text-headtext " >
                 {labelTotal?.map((item, index) => {
                     return (
@@ -54,7 +54,7 @@ export default function CommunityTotalInfo() {
                                 <div className=" w-full flex items-center justify-between " >
                                     <div className=" flex flex-col gap-1 " >
                                         <p className=" text-bodytext text-xs " >{item?.name}</p>
-                                        <p className=" text-2xl font-semibold " >0</p>
+                                        <p className=" text-2xl font-semibold " >{formatNumber(item?.name === "Communities Created" ? analytics?.totalGroups : item?.name === "Private Communities" ? analytics?.totalPrivateGroup : analytics?.totalPublicGroup, "")}</p>
                                     </div>
                                     <div style={{ backgroundColor: item?.bgcolor }} className=" flex justify-center items-center w-[46px] h-[46px] rounded-full " >
                                         <item.icon size={"18px"} color="white" />
@@ -71,6 +71,6 @@ export default function CommunityTotalInfo() {
                     )
                 })}
             </div>
-        // </LoadingAnimation>
+        </LoadingAnimation>
     )
 } 

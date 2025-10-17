@@ -100,6 +100,7 @@ export default function UserTable({
                             <TableHead>EMAIL</TableHead>
                             {/* <TableHead>NO. OF  EVENT </TableHead>
                             <TableHead>NO. OF POST</TableHead> */}
+                            <TableHead>SUSPENDED</TableHead>
                             <TableHead>STATUS</TableHead>
                             <TableHead>ACTION</TableHead>
                         </TableRow>
@@ -111,6 +112,7 @@ export default function UserTable({
                                 <TableCell >{item.email}</TableCell>
                                 {/* <TableCell >0 Event</TableCell>
                                 <TableCell >0 Post</TableCell> */}
+                                <TableCell className=" capitalize " >{item?.isSuspended ? item?.isSuspended+"" : "false"}</TableCell>
                                 <TableCell >
                                     <div className=" bg-[#C2F3D633] rounded-4xl flex justify-center items-center h-[24px] w-[68px] " >
                                         <p className=" text-customgreen text-[10px] " >Active</p>

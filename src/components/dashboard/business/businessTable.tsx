@@ -66,7 +66,6 @@ export default function BusinessTable(
 ) {
 
     const navigate = useNavigate()
-    // const [selected, setSetSelected] = useState("Service")
     const { search, selected, setSelected } = useSearchStore((state => state))
     const { updateTotalPage, page, pageSize } = usePagintion((state) => state)
 
@@ -121,6 +120,7 @@ export default function BusinessTable(
                             <TableHead>Date</TableHead>
                             <TableHead>{selected} price</TableHead>
                             <TableHead>Category</TableHead>
+                            <TableHead>Suspended</TableHead>
                             <TableHead>ACTION</TableHead>
                         </TableRow>
                     </TableHeader>
@@ -157,6 +157,7 @@ export default function BusinessTable(
                                         )}
                                     </div> : formatNumber(item.price)}</TableCell>
                                 <TableCell >{item?.category?.replace("_", " ")?.replace("_", " ")?.replace("_", " ")?.replace("_", " ")?.replace("_", " ")}</TableCell>
+                                <TableCell className=" capitalize " >{item?.isSuspended ? item?.isSuspended+"" : "false"}</TableCell>
                                 <TableCell >
                                     <DrawerSheet header={`${selected} Details`} >
                                         <BusinessInfoModal selected={selected} data={item} />

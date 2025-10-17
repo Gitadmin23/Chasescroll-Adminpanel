@@ -1,18 +1,26 @@
+import CustomButton from "@/components/shared/customButton";
 import UserImage from "@/components/shared/userImage";
 import { Button } from "@/components/ui/button";
+import { SheetTrigger } from "@/components/ui/sheet";
 // import { Input } from "@/components/ui/input";
 // import { Textarea } from "@/components/ui/textarea";
 import type { IEvent } from "@/helpers/models/event";
 import { IMAGE_URL } from "@/helpers/services/urls";
 import { dateFormat, timeFormat } from "@/helpers/utils/dateFormat";
 import { formatNumber } from "@/helpers/utils/numberFormat";
+import useSuspend from "@/hooks/useSuspend";
 import { IoMdCalendar, IoMdTime } from "react-icons/io";
 
 export default function EventInfoModal({
-    data
+    data,
+    past, 
 }: {
-    data: IEvent
+    data: IEvent,
+    past: boolean,
 }) {
+    
+    const { deleteEvent, downloadEvent } = useSuspend()
+
     return (
         <div className=" w-full flex flex-col gap-6 px-4 pb-4 " >
             <div className=" h-[233px] rounded-md " >
@@ -45,11 +53,15 @@ export default function EventInfoModal({
                 <div className=" w-full flex flex-col gap-1 " >
                     <p className=" font-medium text-bodytext text-sm " >Event Description</p>
 
-                    <div className=" w-full h-[47px] flex gap-3 items-center rounded-xl bg-[#F9F9FB] px-3 " >
-                        <div className="  text-sm" dangerouslySetInnerHTML={{__html: data?.eventDescription}} />
+                    <div className=" w-full py-2 flex gap-3 items-center rounded-xl bg-[#F9F9FB] px-3 " >
+                        <div className="  text-sm" dangerouslySetInnerHTML={{ __html: data?.eventDescription }} />
                     </div>
                     {/* <Textarea placeholder="@Miracle20" className=" bg-[#F6F6F8] h-[16px] rounded-2xl border-[#F6F6F8] outline-none " /> */}
-                </div>
+                </div> 
+                {data?.interestedUsers?.length > 0 && (
+                    <CustomButton onClick={()=> downloadEvent?.mutate(data?.id)} isLoading={downloadEvent?.isPaused} className=" rounded-full " >Download Event Attendee List</CustomButton>
+                )}
+
             </div>
 
             <div className=" w-full flex gap-4 " >
@@ -95,7 +107,7 @@ export default function EventInfoModal({
                                         <p className=" text-brand text-xs " >{formatNumber(item?.ticketsSold, "")} sold</p>
                                     </div>
                                 )
-                            })} 
+                            })}
                         </div>
                     </div>
                     {/* <div className=" w-full flex flex-col gap-1 " >
@@ -113,8 +125,14 @@ export default function EventInfoModal({
                 </div>
             </div>
             <div className=" w-full flex justify-between gap-2 " >
-                <Button className=" w-[50%] h-[44px] text-sm rounded-full " >Suspend Event</Button>
-                <Button variant="outline" className=" w-[50%] h-[44px] text-sm rounded-full border-brand text-brand " >Close</Button>
+                {(!past && !data?.isDeleted) && (
+                    <CustomButton onClick={() => deleteEvent.mutate(data?.id)} isLoading={deleteEvent.isPending} className=" w-[50%] h-[48px] bg-[#FDD7D766] text-[#F62727] hover:bg-[#FDD7D766] hover:text-[#F62727] rounded-full " >Delete Event</CustomButton>
+                    // <Button onClick={()=> deleteEvent.mutate(data?.id)} className=" w-[50%] h-[44px] text-sm rounded-full " >Suspend Event</Button>
+                )}
+
+                <SheetTrigger asChild>
+                    <Button variant="outline" className=" w-[50%] h-[44px] text-sm rounded-full border-brand text-brand " >Close</Button>
+                </SheetTrigger>
             </div>
         </div>
     )

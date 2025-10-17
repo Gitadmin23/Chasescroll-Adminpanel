@@ -19,7 +19,7 @@ import UserImage from "@/components/shared/userImage"
 import { FilterLayout } from "@/components/filter"
 import { usePagintion } from "@/helpers/store/usePagination"
 import { useSearchStore } from "@/helpers/store/useSearchText"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 // const event = [
@@ -75,42 +75,57 @@ export default function EventTable({
 
     const navigate = useNavigate()
     const { search } = useSearchStore((state => state))
+
+    const [past, setPast] = useState(false)
+    const [isDelete, setIsDelete] = useState(false)
     const { updateTotalPage, page, pageSize } = usePagintion((state) => state)
 
 
-    const { data, isLoading } = useFetchData<IPagination<IEvent>>({
+    const { data, isLoading, isRefetching } = useFetchData<IPagination<IEvent>>({
         endpoint: `/events/events`, name: "event", params: {
             page: page - 1,
             size: show ? 6 : pageSize,
-            searchText: search
+            searchText: search,
+            pastEvent: past + "",
+            isDeleted: isDelete + "",
+            myEvents: (!past && !isDelete) + ""
         }
     });
 
     useEffect(() => {
-        if (!isLoading) {
+        if (!isRefetching) { 
             updateTotalPage(Number(data?.totalPages))
         }
-    }, [isLoading])
+    }, [isRefetching, data])
 
     return (
         <div className=" w-full flex flex-col gap-1 " >
-            {show ? (
-                <div className=" w-full flex justify-between items-center rounded-md py-3 px-4 bg-white " >
+
+            <div className=" w-full flex justify-between items-center rounded-md py-3 px-4 bg-white " >
+
+                {show && (
                     <p className=" text-sm font-semibold " >Recent Activities</p>
-                    <div className=" flex gap-2 items-center " >
-                        <div className=" w-fit px-4 h-[40px] text-brand bg-[#F3FAFE] text-xs font-medium rounded-[20px] flex justify-center items-center " >
-                            Upcoming
-                        </div>
-                        <div className=" w-fit px-4 h-[40px] gap-2 text-xs font-medium rounded-[20px] flex justify-center items-center " >
-                            Past Event
-                            <div className=" w-2 h-2 rounded-full bg-brand " />
-                        </div>
-                    </div>
-                    <Button onClick={()=> navigate("/dashboard/event/allevent")} className=" w-fit px-4 h-[40px] text-sm rounded-full " >
+                )}
+                <div className=" flex gap-2 items-center " >
+                    <button onClick={() => { setIsDelete(false), setPast(false) }} className={` w-fit px-4 h-[40px] ${!past && !isDelete ? " text-brand bg-[#F3FAFE] " : ""} text-xs font-medium rounded-[20px] flex justify-center items-center `} >
+                        Upcoming
+                    </button>
+                    <button onClick={() => { setIsDelete(false), setPast(true) }} className={` w-fit px-4 h-[40px] ${past && !isDelete ? " text-brand bg-[#F3FAFE] " : ""} gap-2 text-xs font-medium rounded-[20px] flex justify-center items-center `} >
+                        Past Event
+                        {/* <button className=" w-2 h-2 rounded-full bg-brand " /> */}
+                    </button>
+                    <button onClick={() => { setIsDelete(true), setPast(false) }} className={` w-fit px-4 h-[40px] ${!past && isDelete ? " text-brand bg-[#F3FAFE] " : ""} gap-2 text-xs font-medium rounded-[20px] flex justify-center items-center `} >
+                        Delete Event
+                        {/* <button className=" w-2 h-2 rounded-full bg-brand " /> */}
+                    </button>
+                </div>
+                {show && (
+                    <Button onClick={() => navigate("/dashboard/event/allevent")} className=" w-fit px-4 h-[40px] text-sm rounded-full " >
                         View All
                     </Button>
-                </div>
-            ) : (
+                )}
+            </div>
+            {!show && (
                 <FilterLayout />
             )}
             <LoadingAnimation loading={isLoading} length={data?.content?.length} >
@@ -142,7 +157,7 @@ export default function EventTable({
                                 <TableCell >{item?.interestedUsers?.length} People</TableCell>
                                 <TableCell >
                                     <DrawerSheet header="Event" >
-                                        <EventInfoModal data={item} />
+                                        <EventInfoModal past={past} data={item} />
                                     </DrawerSheet>
                                 </TableCell>
                             </TableRow>
@@ -150,7 +165,7 @@ export default function EventTable({
                     </TableBody>
                 </Table>
             </LoadingAnimation>
-            {(Number(data?.numberOfElements) > pageSize && !show) && (
+            {(Number(data?.totalElements) > pageSize && !show) && (
                 <CustomPagination totalElement={data?.totalElements + ""} />
             )}
             <div className=" h-9 w-full " />

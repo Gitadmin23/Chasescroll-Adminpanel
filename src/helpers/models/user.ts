@@ -10,6 +10,7 @@ export interface IUser {
     "dob": any,
     "publicProfile": boolean,
     "joinStatus": string,
+    isSuspended: boolean | null,
     "data": {
         "mobilePhone": {
             "objectPublic": boolean,

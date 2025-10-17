@@ -65,6 +65,7 @@ export default function CommunityTable(
                             <TableHead>Date</TableHead>
                             <TableHead>COMMUNITY TYPE</TableHead>
                             <TableHead>USERS</TableHead>
+                            <TableHead>Suspended</TableHead>
                             <TableHead>ACTION</TableHead>
                         </TableRow>
                     </TableHeader>
@@ -85,6 +86,7 @@ export default function CommunityTable(
                                 <TableCell >{dateFormat(item?.createdOn)}</TableCell>
                                 <TableCell >{item?.data?.isPublic ? "Public" : "Private" }</TableCell>
                                 <TableCell >{item?.data?.memberCount} People </TableCell>
+                                <TableCell >{item?.isSuspended ? item?.isSuspended+"" : "false"} </TableCell>
                                 <TableCell >
                                     <DrawerSheet header="Community Information" >
                                         <CommunityInfoModal item={item} />
@@ -95,7 +97,7 @@ export default function CommunityTable(
                     </TableBody>
                 </Table>
             </LoadingAnimation>
-            {(Number(data?.numberOfElements) > pageSize && !show) && (
+            {(Number(data?.totalElements) > pageSize && !show) && (
                 <CustomPagination totalElement={data?.totalElements + ""} />
             )}
             <div className=" h-9 w-full " />

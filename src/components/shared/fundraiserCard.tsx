@@ -30,7 +30,7 @@ export default function FundraiserCard({ data } : { data: IFundraising }) {
                     <div className=" w-[150px] " >
 
                     <DrawerSheet header="Fundraising Details" >
-                        <FundraiserInfoModal data={data} />
+                        <FundraiserInfoModal past={false} data={data} />
                     </DrawerSheet>
                     </div>
                 </div>

@@ -1,5 +1,4 @@
-import CustomButton from "@/components/shared/customButton";
-import { Button } from "@/components/ui/button";
+import CustomButton from "@/components/shared/customButton"; 
 import type { IFundraising } from "@/helpers/models/fundraising";
 import { IMAGE_URL } from "@/helpers/services/urls";
 import { dateFormat } from "@/helpers/utils/dateFormat";
@@ -7,14 +6,14 @@ import { formatNumber } from "@/helpers/utils/numberFormat";
 import useSuspend from "@/hooks/useSuspend";
 
 
-export default function FundraiserInfoModal({data} : {data: IFundraising}) {
+export default function FundraiserInfoModal({ data, past }: { data: IFundraising, past: boolean }) {
 
     const { suspendDonation } = useSuspend()
 
     return (
         <div className=" w-full flex flex-col gap-6 px-4 pb-4 " >
             <div className=" h-[233px] rounded-md " >
-                <img alt="donation" src={IMAGE_URL+data?.bannerImage} className=" w-full h-full object-cover rounded-md " />
+                <img alt="donation" src={IMAGE_URL + data?.bannerImage} className=" w-full h-full object-cover rounded-md " />
             </div>
             <div className=" w-full flex flex-col gap-4 " >
                 <div className=" w-full flex items-center justify-between " >
@@ -45,12 +44,12 @@ export default function FundraiserInfoModal({data} : {data: IFundraising}) {
                         <p className=" font-semibold " >User Donation</p>
                         <p className=" text-xs " >{"0"} users donated already</p>
                     </div>
-                </div> 
-                <div className=" w-full flex justify-between items-center " > 
+                </div>
+                <div className=" w-full flex justify-between items-center " >
                     <p className=" font-medium " >Date Created</p>
                     <p className=" text-sm " >{dateFormat(data?.createdDate)}</p>
                 </div>
-                <div className=" w-full flex flex-col gap-1 " > 
+                <div className=" w-full flex flex-col gap-1 " >
                     <p className=" font-medium " >Fund Raising Description</p>
                     <p className=" text-sm " >{data?.description}</p>
                 </div>
@@ -65,8 +64,10 @@ export default function FundraiserInfoModal({data} : {data: IFundraising}) {
                 </div>  */}
             </div>
             <div className=" w-full flex flex-col gap-3 " >
-                <Button className=" w-full h-[53px] text-sm rounded-full " >View Users Report</Button>
-                <CustomButton onClick={()=> suspendDonation.mutate(data?.id)} isLoading={suspendDonation?.isPending} variant="outline" className=" w-full h-[53px] text-sm rounded-full border-brand text-brand " >Suspend Fundraising</CustomButton>
+                {/* <Button className=" w-full h-[53px] text-sm rounded-full " >View Users Report</Button> */}
+                {!past && (
+                    <CustomButton onClick={() => suspendDonation.mutate(data?.id)} isLoading={suspendDonation?.isPending} variant="outline" className=" w-full h-[53px] text-sm rounded-full border-brand text-brand " >{data?.isSuspended ? "UnSuspend" : "Suspend"} Fundraising</CustomButton>
+                )}
             </div>
         </div>
     )

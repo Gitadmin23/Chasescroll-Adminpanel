@@ -1,6 +1,7 @@
 import CustomButton from "@/components/shared/customButton";
 import UserImage from "@/components/shared/userImage";
 import { Button } from "@/components/ui/button";
+import { SheetTrigger } from "@/components/ui/sheet";
 import type { IGroup } from "@/helpers/models/group";
 import { IMAGE_URL } from "@/helpers/services/urls";
 import { dateFormat, timeFormat } from "@/helpers/utils/dateFormat";
@@ -18,7 +19,7 @@ export default function CommunityInfoModal(
             <div className=" w-full h-[143px] flex items-center gap-3 " >
                 <div className=" w-fit " >
                     <div className=" w-[164px] h-[143px] rounded-2xl rounded-tr-sm bg-amber-300 " >
-                        <img src={IMAGE_URL + item?.data?.imgSrc} />
+                        <img src={IMAGE_URL + item?.data?.imgSrc} alt="group" className=" rounded-md w-full h-full object-cover "  />
                     </div>
                 </div>
                 <div className=" flex flex-col gap-2 " >
@@ -84,8 +85,10 @@ export default function CommunityInfoModal(
             </div>
 
             <div className=" w-full flex justify-between gap-2 mt-auto " >
-                    <CustomButton onClick={()=> suspendCommunity.mutate(item?.id)} isLoading={suspendCommunity.isPending} className=" w-[50%] h-[44px] text-xs rounded-full " >Suspend Community</CustomButton>
-                    <Button variant="outline" className=" w-[50%] h-[44px] text-xs rounded-full border-brand text-brand " >Close</Button>
+                    <CustomButton onClick={()=> suspendCommunity.mutate(item?.id)} isLoading={suspendCommunity.isPending} className=" w-[50%] h-[44px] text-xs rounded-full " >{item?.isSuspended ? "UnSuspend" : "Suspend"} Community</CustomButton>
+                    <SheetTrigger asChild >
+                        <Button variant="outline" className=" w-[50%] h-[44px] text-xs rounded-full border-brand text-brand " >Close</Button>
+                    </SheetTrigger>
                 </div>
         </div>
     )

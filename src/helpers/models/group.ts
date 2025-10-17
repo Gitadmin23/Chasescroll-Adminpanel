@@ -6,6 +6,7 @@ export interface IGroup {
     "creator": IUser,
     "active": boolean,
     "joinStatus": string,
+    isSuspended: boolean,
     "data": {
         "address": string,
         "contactNumber": string,

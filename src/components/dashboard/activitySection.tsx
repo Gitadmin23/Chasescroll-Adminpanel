@@ -1,12 +1,11 @@
-import DoughnutChart from "../graphs/doughnutGraph";
-import { EventCard } from "../shared";
-import { Button } from "../ui/button";
+import EventTable from "./event/eventTable";
 
 
 export default function ActivitySection() {
     return (
         <div className=" w-full flex gap-4 text-headtext " >
-            <div className=" w-full py-8 px-6 rounded-[12px] flex flex-col gap-3 " >
+            <EventTable />
+            {/* <div className=" w-full py-8 px-6 rounded-[12px] flex flex-col gap-3 " >
                 <div className=" w-full flex justify-between items-center " >
                     <p className=" font-medium " >Recent Activity</p>
                     <div className=" flex gap-3 " >
@@ -25,8 +24,8 @@ export default function ActivitySection() {
                     <EventCard />
                     <EventCard />
                 </div>
-            </div>
-            <div className=" w-fit h-fit  " >
+            </div> */}
+            {/* <div className=" w-fit h-fit  " >
                 <div className=" w-[400px] h-fit bg-white flex flex-col justify-center px-6 pt-8 pb-14 rounded-[12px] " >
                     <div className=" w-full flex items-center justify-between " >
                         <p className=" font-medium ">Statistics</p>
@@ -55,7 +54,7 @@ export default function ActivitySection() {
                         <DoughnutChart color={["#00B69B", "#FDA21C"]} />
                     </div>
                 </div>  
-            </div>
+            </div> */}
         </div>
     )
 }

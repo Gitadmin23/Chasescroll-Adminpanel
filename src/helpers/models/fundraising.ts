@@ -40,5 +40,7 @@ export interface IFundraising {
     "funnelType": any,
     "endDate": number,
     "isCollaborator": boolean,
-    "totalInGroup": number
+    "totalInGroup": number,
+    suspended: boolean,
+    isSuspended: boolean
 }

@@ -8,6 +8,7 @@ export interface IBusiness {
     "name": string,
     "category": string,
     "openingHours": any,
+    suspended: boolean,
     "images": Array<
         string
     >,
