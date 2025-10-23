@@ -15,6 +15,8 @@ import { usePagintion } from "@/helpers/store/usePagination";
 import { useSearchStore } from "@/helpers/store/useSearchText";
 import { useEffect } from "react"; 
 import { formatNumber } from "@/helpers/utils/numberFormat";
+import type { IUser } from "@/helpers/models/user";
+import { textLimit } from "@/helpers/utils/textlimit";
 
 export default function CommunityTable(
     { show }: { show?: boolean }
@@ -25,7 +27,7 @@ export default function CommunityTable(
 
     const { data, isLoading } = useFetchData<IPagination<{
         "id": string,
-        "userID": string,
+        "user": IUser,
         "timestamp": number,
         "description": string,
         "currency": string,
@@ -67,7 +69,7 @@ export default function CommunityTable(
                     <TableBody className=" bg-white "  >
                         {data?.content.map((item, index) => (
                             <TableRow className=" h-[47px] border-white capitalize " key={index}>
-                                <TableCell >{item?.userID}</TableCell>
+                                <TableCell >{textLimit(item?.user?.firstName+" "+item?.user?.lastName, 30)}</TableCell>
                                 <TableCell >
                                     {formatNumber(item?.totalAmount)}
                                 </TableCell>
